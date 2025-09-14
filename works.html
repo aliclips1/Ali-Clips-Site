@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ali Clips - My Portfolio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;700;800&family=Playfair+Display:wght@700&family=Dancing+Script:wght@400;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+
+        
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: #000000;
+            color: #e0e0e0;
+            overflow-x: hidden;
+        }
+
+          .navbar {
+    position: sticky;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 20;
+    background: rgba(0, 0, 0, 0.92); /* Lighter black bar */
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid rgba(50, 50, 50, 0.3);
+    box-shadow: 0 2px 12px rgba(22, 22, 22, 0.08);
+    transition: background 0.3s ease;
+}
+
+        .page-fade {
+    opacity: 0;
+    transition: opacity 0.6s ease;
+}
+.page-fade.visible {
+    opacity: 1;
+}
+.nav-link {
+    position: relative;
+    color: #e0e0e0;
+    font-weight: 500; /* Not bold */
+    transition: color 0.3s ease;
+    padding: 0.5rem 0;
+    letter-spacing: 0.05em;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.1rem;
+}
+
+.nav-link:hover {
+    color: #B8860B; /* Gold on hover */
+    font-weight: 500; /* Stay not bold */
+}
+
+.nav-link.active {
+    color: #B8860B;
+    font-weight: 500; /* Stay not bold even when active */
+}
+
+.nav-link::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: 0;
+    left: 0;
+    background-color: #B8860B;
+    transition: width 0.3s ease;
+}
+
+.nav-link:hover::after,
+.nav-link.active::after {
+    width: 100%;
+}
+
+        /* Image Card with Golden Border */
+        .image-card {
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            border-radius: 0.5rem;
+            border: 2px solid #B8860B;
+        }
+        .image-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 20px rgba(184, 134, 11, 0.4);
+        }
+
+        /* Shine effect on hover */
+        .image-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -75%;
+            width: 50%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.3);
+            transform: skewX(-20deg);
+            transition: all 0.7s ease-in-out;
+        }
+        .image-card:hover::before {
+            left: 125%;
+        }
+
+        /* Main title styling */
+        .page-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 3.5rem;
+            color: #B8860B;
+            text-align: center;
+            letter-spacing: 0.08em;
+            font-weight: 700;
+        }
+        @media (max-width: 768px) {
+            .page-title {
+                font-size: 2.5rem;
+            }
+        }
+
+        /* Footer Styling */
+footer {
+    background-color: #0d0d0d;
+    border-top: 1px solid rgba(50, 50, 50, 0.5);
+    padding: 3rem 0;
+    font-size: 0.9rem;
+    color: #888888;
+    font-family: 'Montserrat', sans-serif; /* Ensure this line is present */
+}
+
+.footer-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+}
+
+.social-icons a {
+    color: #e0e0e0;
+    font-size: 1.5rem;
+    margin-left: 1.5rem;
+    transition: color 0.3s ease;
+}
+.social-icons a:hover {
+    color: #B8860B;
+}
+.social-link {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    text-decoration: none;
+    color: #e0e0e0;
+    font-weight: 500;
+    font-size: 1.2rem;
+    font-family: 'Montserrat', sans-serif; /* Add this for consistency */
+}
+.social-link:hover {
+    color: #B8860B;
+}
+.social-link .fab, .social-link .fas {
+    font-size: 1.5rem;
+}
+
+@media (max-width: 768px) {
+    .footer-content {
+        flex-direction: column;
+        text-align: center;
+        gap: 1.5rem;
+    }
+    .social-icons {
+        margin-top: 1rem;
+        justify-content: center;
+    }
+    .social-icons a {
+        margin: 0 0.8rem;
+    }
+    .footer-content > p {
+        order: 2;
+    }
+    .social-icons {
+        order: 1;
+    }
+}
+
+        .logo-text {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 800;
+    text-transform: uppercase;
+    font-size: 2.2rem;
+    color: #ffffff;
+    transition: color 0.3s ease;
+    letter-spacing: 0.25em;
+    transform: scaleX(1.1);
+    display: inline-block;
+    text-shadow: 2px 2px 4px rgba(184, 134, 11, 0.4);
+}
+.logo-text:hover {
+    color: #B8860B;
+}
+
+        @media (max-width: 768px) {
+            .footer-content {
+                flex-direction: column;
+                text-align: center;
+                gap: 1.5rem;
+            }
+            .social-icons {
+                margin-top: 1rem;
+                justify-content: center;
+            }
+            .social-icons a {
+                margin: 0 0.8rem;
+            }
+            .footer-content > p {
+                order: 2;
+            }
+            .social-icons {
+                order: 1;
+            }
+        }
+    </style>
+</head>
+<body class="bg-black min-h-screen text-gray-100 font-sans">
+
+    <nav class="sticky top-0 left-0 w-full z-20 navbar shadow-xl">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="index.html" class="logo-text">ALI CLIPS</a>
+            <div class="flex space-x-8" style="font-family: 'Montserrat', sans-serif;">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="main.html" class="nav-link">Services</a>
+                <a href="works.html" class="nav-link active">Work</a>
+                <a href="policies.html" class="nav-link">Policies</a>
+                <a href="reviews.html" class="nav-link">Reviews</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container mx-auto px-4 py-16">
+        <h1 class="page-title mb-12" style="font-family: 'Playfair Display', serif;">My Work</h1>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 max-w-7xl mx-auto">
+            <div class="image-card">
+                <img src="https://d2zdpiztbgorvt.cloudfront.net/region1/ca/18911/inspiration/f9a81d9407f64e0899e1110fbb4ed7-ali-clips-inspiration-937a20ea8e5c441891c5ba7a7421bd-booksy.jpeg?size=1170x1170" alt="Fresh haircut with a clean fade" class="w-full h-auto object-cover rounded-lg">
+            </div>
+
+            <div class="image-card">
+                <img src="https://d2zdpiztbgorvt.cloudfront.net/region1/ca/18911/inspiration/44690924c77f4c3aa4c65699c12847-ali-clips-inspiration-2bd1b0dbb1ac4b5ca96cdc636436ba-booksy.jpeg?size=1170x1170" alt="Sharp men's hairstyle with texture" class="w-full h-auto object-cover rounded-lg">
+            </div>
+
+            <div class="image-card">
+                <img src="https://d2zdpiztbgorvt.cloudfront.net/region1/ca/18911/inspiration/6e8df8757baa44278953009e7f664a-ali-clips-inspiration-ed143fb6af6743c2986dc5898b6bcc-booksy.jpeg?size=1170x1170" alt="Detailed beard trim and lineup" class="w-full h-auto object-cover rounded-lg">
+            </div>
+
+            <div class="image-card">
+                <img src="https://d2zdpiztbgorvt.cloudfront.net/region1/ca/18911/inspiration/2d71e43c25c949d081996710599077-ali-clips-inspiration-af197fac65fa4327aaf036f3a92821-booksy.jpeg?size=1170x1170" alt="Modern textured haircut" class="w-full h-auto object-cover rounded-lg">
+            </div>
+
+            <div class="image-card">
+                <img src="https://d2zdpiztbgorvt.cloudfront.net/region1/ca/18911/inspiration/bc17f1f4173d4d79b44d2d96d39d10-ali-clips-inspiration-3aa6f32ce4bc4b409e66f7d530c8f3-booksy.jpeg?size=1170x1170" alt="Clean haircut with a fade and design" class="w-full h-auto object-cover rounded-lg">
+            </div>
+        </div>
+    </main>
+    
+
+    <footer class="footer">
+        <div class="footer-content">
+            <p>© 2025 Ali Clips. All rights reserved. Located in Brampton, Ontario, Canada.</p>
+            <div class="social-icons">
+                <a href="https://booksy.com/en-ca/18911_ali-clips_barbershop_870806_mississauga" target="_blank" aria-label="Booksy Link"><i class="fas fa-calendar-alt"></i></a>
+                <a href="https://www.instagram.com/aliclips_/?hl=en" target="_blank" aria-label="Instagram Profile"><i class="fab fa-instagram"></i></a>
+            </div>
+        </div>
+    </footer>
+    <script src="transition.js"></script>
+</body>
+</html>

@@ -1,0 +1,177 @@
+body {
+    font-family: 'Roboto Mono', monospace;
+    background-color: #121212; /* Darker background */
+    color: #e5e7eb;
+}
+
+/* Custom style for the navigation links with a clean, understated hover effect */
+.nav-link-bubbly {
+    position: relative;
+    display: inline-block;
+    transition: all 0.3s ease-in-out;
+}
+
+.nav-link-bubbly:hover {
+    transform: translateY(-2px);
+    color: white;
+}
+
+.nav-link-bubbly::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    transform: scaleX(0);
+    height: 2px;
+    bottom: -5px;
+    left: 0;
+    background-color: #f3f4f6; /* A subtle hover line */
+    transform-origin: bottom right;
+    transition: transform 0.3s ease-in-out;
+}
+
+.nav-link-bubbly:hover::after {
+    transform: scaleX(1);
+    transform-origin: bottom left;
+}
+
+/* Bubbly button style */
+.bubbly-button {
+    background-color: #f3f4f6;
+    color: #121212;
+    font-weight: bold;
+    padding: 0.5rem 1.5rem;
+    border-radius: 9999px;
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+}
+
+.bubbly-button:hover {
+    color: #fff;
+    box-shadow: 0 0 20px rgba(243, 244, 246, 0.5);
+}
+
+.bubbly-button:hover::before {
+    transform: translate(-50%, -50%) scale(1.5);
+    opacity: 1;
+}
+
+.bubbly-button:active {
+    transform: scale(0.95);
+}
+
+.bubbly-button::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 150%;
+    height: 150%;
+    background: rgba(243, 244, 246, 0.2);
+    border-radius: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    transition: transform 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
+    z-index: -1;
+}
+
+/* Modal specific styles for a bubbly effect */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed;
+    z-index: 100;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    background-color: #1a1a1a;
+    padding: 2rem;
+    border-radius: 2rem;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+    max-width: 90%;
+    width: 500px;
+    position: relative;
+    transition: transform 0.3s ease-out;
+    transform: scale(0.9);
+}
+
+.modal.show .modal-content {
+    transform: scale(1);
+}
+
+/* Animated confirmation message */
+.confirmation-message {
+    position: fixed;
+    top: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #22c55e;
+    color: white;
+    padding: 1rem 2rem;
+    border-radius: 9999px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+    z-index: 1000;
+}
+
+.confirmation-message.show {
+    opacity: 1;
+}
+
+/* Calendar styles */
+.calendar-day {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 9999px;
+    cursor: pointer;
+    transition: transform 0.2s ease-in-out, background-color 0.2s ease-in-out;
+    user-select: none;
+}
+
+.calendar-day:hover:not(.unavailable-day) {
+    transform: scale(1.1);
+}
+
+/* Specific day states */
+.available-day {
+    background-color: #22c55e;
+    color: white;
+}
+.unavailable-day {
+    background-color: #4b5563;
+    color: #9ca3af;
+    cursor: not-allowed;
+}
+.selected-day {
+    background-color: #3b82f6;
+    color: white;
+    transform: scale(1.1);
+    box-shadow: 0 0 15px rgba(59, 130, 246, 0.5);
+}
+
+/* Message box for alerts */
+#message-box {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #333;
+    border-radius: 1rem;
+    padding: 2rem;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+    z-index: 200;
+}
