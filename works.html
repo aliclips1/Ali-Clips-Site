@@ -3,205 +3,212 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ali Clips - My Portfolio</title>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;700;800&family=Playfair+Display:wght@700&family=Dancing+Script:wght@400;700&display=swap" rel="stylesheet">
+    <title>Ali Clips - My Work</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;700;800&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
+        /* Define the Monochrome Palette (White Background, Black Accents) */
+        :root {
+            --color-primary-light: #FFFFFF;
+            --color-secondary-light: #f5f5f5; /* For the footer */
+            --color-text-dark: #1a1a1a;
+            --color-text-light-subtle: #666666;
+            --color-accent: #000000; /* Black for primary accents */
+            --color-border: rgba(200, 200, 200, 0.5);
+            --color-shadow: rgba(0, 0, 0, 0.1);
+            --color-glow: rgba(0, 0, 0, 0.4); /* New: For the hover effect */
+        }
 
-        
         body {
             font-family: 'Montserrat', sans-serif;
-            background-color: #000000;
-            color: #e0e0e0;
+            background-color: var(--color-primary-light);
+            color: var(--color-text-dark);
             overflow-x: hidden;
         }
 
-          .navbar {
-    position: sticky;
-    top: 0;
-    left: 0;
-    width: 100%;
-    z-index: 20;
-    background: rgba(0, 0, 0, 0.92); /* Lighter black bar */
-    backdrop-filter: blur(8px);
-    border-bottom: 1px solid rgba(50, 50, 50, 0.3);
-    box-shadow: 0 2px 12px rgba(22, 22, 22, 0.08);
-    transition: background 0.3s ease;
-}
+        .navbar {
+            position: sticky;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 20;
+            /* White Navbar with Blur */
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(8px);
+            border-bottom: 1px solid var(--color-border);
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+            transition: background 0.3s ease;
+        }
 
-        .page-fade {
-    opacity: 0;
-    transition: opacity 0.6s ease;
-}
-.page-fade.visible {
-    opacity: 1;
-}
-.nav-link {
-    position: relative;
-    color: #e0e0e0;
-    font-weight: 500; /* Not bold */
-    transition: color 0.3s ease;
-    padding: 0.5rem 0;
-    letter-spacing: 0.05em;
-    font-family: 'Montserrat', sans-serif;
-    font-size: 1.1rem;
-}
+        .nav-link {
+            position: relative;
+            color: var(--color-text-dark);
+            font-weight: 500;
+            transition: color 0.3s ease;
+            padding: 0.5rem 0;
+            letter-spacing: 0.05em;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.1rem;
+        }
 
-.nav-link:hover {
-    color: #B8860B; /* Gold on hover */
-    font-weight: 500; /* Stay not bold */
-}
+        .nav-link:hover,
+        .nav-link.active {
+            color: var(--color-accent); /* Black on hover/active */
+            font-weight: 500;
+        }
 
-.nav-link.active {
-    color: #B8860B;
-    font-weight: 500; /* Stay not bold even when active */
-}
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 0;
+            background-color: var(--color-accent); /* Black underline */
+            transition: width 0.3s ease;
+        }
 
-.nav-link::after {
-    content: '';
-    position: absolute;
-    width: 0;
-    height: 2px;
-    bottom: 0;
-    left: 0;
-    background-color: #B8860B;
-    transition: width 0.3s ease;
-}
+        .nav-link:hover::after,
+        .nav-link.active::after {
+            width: 100%;
+        }
 
-.nav-link:hover::after,
-.nav-link.active::after {
-    width: 100%;
-}
-
-        /* Image Card with Golden Border */
-        .image-card {
-            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
-            cursor: pointer;
+        /* Portfolio Image Card Styling (Monochrome) */
+        .image-card-container {
             position: relative;
             overflow: hidden;
             border-radius: 0.5rem;
-            border: 2px solid #B8860B;
+            box-shadow: 0 4px 15px var(--color-shadow);
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out, border 0.3s ease;
+            border: 1px solid var(--color-border); 
+            cursor: pointer;
         }
-        .image-card:hover {
-            transform: scale(1.05);
-            box-shadow: 0 0 20px rgba(184, 134, 11, 0.4);
+        
+        .image-card-container:hover {
+            transform: translateY(-8px); /* More pronounced lift */
+            /* Added noticeable black glow/stronger shadow on hover */
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3), 0 0 0 3px var(--color-accent); 
+            border-color: var(--color-accent); 
         }
 
-        /* Shine effect on hover */
-        .image-card::before {
-            content: '';
+        .image-card-container img {
+            display: block;
+            width: 100%;
+            height: auto;
+            object-fit: cover;
+            transition: filter 0.3s ease;
+        }
+
+        .image-card-container:hover img {
+            filter: brightness(0.85); /* Slightly darker filter */
+        }
+        
+        /* Overlay for Description - Reversed */
+        .card-overlay {
             position: absolute;
-            top: 0;
-            left: -75%;
-            width: 50%;
-            height: 100%;
-            background: rgba(255, 255, 255, 0.3);
-            transform: skewX(-20deg);
-            transition: all 0.7s ease-in-out;
-        }
-        .image-card:hover::before {
-            left: 125%;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            /* Changed gradient to be a more solid light background */
+            background: linear-gradient(to top, rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0));
+            padding: 1.5rem 1rem 1rem; /* Adjusted padding to be heavier at the bottom */
+            opacity: 0;
+            transform: translateY(100%);
+            transition: opacity 0.4s ease, transform 0.4s ease;
+            color: var(--color-text-dark); 
         }
 
-        /* Main title styling */
-        .page-title {
-            font-family: 'Playfair Display', serif;
-            font-size: 3.5rem;
-            color: #B8860B;
-            text-align: center;
-            letter-spacing: 0.08em;
-            font-weight: 700;
+        .image-card-container:hover .card-overlay {
+            opacity: 1;
+            transform: translateY(0);
         }
+
+        .card-title {
+            color: var(--color-accent); /* Black Title */
+            font-family: 'Montserrat', sans-serif; /* Consistent Title Font */
+            font-weight: 800; /* Heavy weight */
+            font-size: 1.4rem; /* Slightly larger for prominence */
+            margin-bottom: 0.25rem;
+            letter-spacing: 0.05em;
+            text-transform: uppercase; /* Uppercase look */
+        }
+
+        .card-text {
+            color: var(--color-text-light-subtle); /* Dark Gray text */
+            font-size: 1.05rem; /* Made description slightly bigger for readability */
+            font-weight: 500;
+        }
+
+        /* Main title styling - now consistent with Reviews page */
+        .page-title {
+            font-family: 'Montserrat', sans-serif; /* Consistent Title Font */
+            font-size: 4rem; /* Consistent size with Reviews page */
+            color: var(--color-accent); /* Black title */
+            text-align: center;
+            letter-spacing: 0.1em; /* Consistent letter spacing */
+            font-weight: 800; /* Heavy weight */
+            text-transform: uppercase; /* Consistent uppercase look */
+            line-height: 1.1;
+        }
+        
+        /* Logo Styling (Synced with other pages) */
+        .logo-text {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 800;
+            text-transform: uppercase;
+            font-size: 2.2rem;
+            color: var(--color-accent); 
+            transition: color 0.3s ease;
+            letter-spacing: 0.25em;
+            transform: scaleX(1.1);
+            display: inline-block;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+        }
+        .logo-text:hover {
+            color: var(--color-text-light-subtle);
+        }
+
+        /* Footer Styling (Synced with other pages) */
+        footer {
+            background-color: var(--color-secondary-light); 
+            border-top: 1px solid var(--color-border);
+            padding: 3rem 0;
+            font-size: 0.9rem;
+            color: var(--color-text-light-subtle);
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+
+        .social-icons a {
+            color: var(--color-text-dark); 
+            font-size: 1.5rem;
+            margin-left: 1.5rem;
+            transition: color 0.3s ease;
+        }
+        .social-icons a:hover {
+            color: var(--color-accent);
+        }
+        
+        /* Media Queries (Synced with other pages) */
         @media (max-width: 768px) {
             .page-title {
-                font-size: 2.5rem;
+                font-size: 3rem; /* Adjusted for smaller screens */
             }
-        }
-
-        /* Footer Styling */
-footer {
-    background-color: #0d0d0d;
-    border-top: 1px solid rgba(50, 50, 50, 0.5);
-    padding: 3rem 0;
-    font-size: 0.9rem;
-    color: #888888;
-    font-family: 'Montserrat', sans-serif; /* Ensure this line is present */
-}
-
-.footer-content {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 1.5rem;
-}
-
-.social-icons a {
-    color: #e0e0e0;
-    font-size: 1.5rem;
-    margin-left: 1.5rem;
-    transition: color 0.3s ease;
-}
-.social-icons a:hover {
-    color: #B8860B;
-}
-.social-link {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    text-decoration: none;
-    color: #e0e0e0;
-    font-weight: 500;
-    font-size: 1.2rem;
-    font-family: 'Montserrat', sans-serif; /* Add this for consistency */
-}
-.social-link:hover {
-    color: #B8860B;
-}
-.social-link .fab, .social-link .fas {
-    font-size: 1.5rem;
-}
-
-@media (max-width: 768px) {
-    .footer-content {
-        flex-direction: column;
-        text-align: center;
-        gap: 1.5rem;
-    }
-    .social-icons {
-        margin-top: 1rem;
-        justify-content: center;
-    }
-    .social-icons a {
-        margin: 0 0.8rem;
-    }
-    .footer-content > p {
-        order: 2;
-    }
-    .social-icons {
-        order: 1;
-    }
-}
-
-        .logo-text {
-    font-family: 'Montserrat', sans-serif;
-    font-weight: 800;
-    text-transform: uppercase;
-    font-size: 2.2rem;
-    color: #ffffff;
-    transition: color 0.3s ease;
-    letter-spacing: 0.25em;
-    transform: scaleX(1.1);
-    display: inline-block;
-    text-shadow: 2px 2px 4px rgba(184, 134, 11, 0.4);
-}
-.logo-text:hover {
-    color: #B8860B;
-}
-
-        @media (max-width: 768px) {
+            .card-title {
+                font-size: 1.2rem;
+            }
+            .card-text {
+                font-size: 0.95rem;
+            }
             .footer-content {
                 flex-direction: column;
                 text-align: center;
@@ -211,60 +218,157 @@ footer {
                 margin-top: 1rem;
                 justify-content: center;
             }
-            .social-icons a {
-                margin: 0 0.8rem;
-            }
-            .footer-content > p {
-                order: 2;
-            }
-            .social-icons {
-                order: 1;
-            }
         }
+        
+/*MOBILE RESPONSIVE*/
+@media (max-width: 900px) {
+    .page-title { font-size: 2.2rem !important; }
+    .page-title.h2-style { font-size: 1.5rem !important; }
+    .cta-button { padding: 0.7rem 1.2rem !important; font-size: 1rem !important; }
+    .review-card { padding: 1.2rem !important; }
+}
+
+@media (max-width: 600px) {
+    .main, .container, .max-w-4xl, .max-w-6xl {
+        padding-left: 0.5rem !important;
+        padding-right: 0.5rem !important;
+    }
+    .grid { gap: 1rem !important; }
+    .review-card { padding: 0.7rem !important; font-size: 0.95rem !important; }
+    .footer-content { flex-direction: column !important; gap: 1rem !important; text-align: center !important; }
+    .social-icons { margin-top: 1rem !important; justify-content: center !important; }
+}
+
+@media (max-width: 480px) {
+    .page-title { font-size: 1.3rem !important; }
+    .page-title.h2-style { font-size: 1rem !important; }
+    .review-card { padding: 0.5rem !important; font-size: 0.9rem !important; }
+    .cta-button { padding: 0.5rem 0.8rem !important; font-size: 0.9rem !important; }
+}
+        .scroll-gallery {
+    display: flex;
+    gap: 1.5rem;
+    overflow-x: auto;
+    padding-bottom: 1rem;
+    scroll-behavior: smooth;
+}
+.scroll-gallery::-webkit-scrollbar {
+    height: 8px;
+    background: #eee;
+}
+.scroll-gallery::-webkit-scrollbar-thumb {
+    background: #ccc;
+    border-radius: 4px;
+}
+
+        .image-card-container img {
+    width: 100%;
+    height: 320px; /* Set a fixed height for all images */
+    object-fit: cover; /* Crop and scale to fill the card */
+    border-radius: 0.5rem;
+    display: block;
+    transition: filter 0.3s ease;
+}
     </style>
 </head>
-<body class="bg-black min-h-screen text-gray-100 font-sans">
+<body class="bg-white min-h-screen font-sans">
 
-    <nav class="sticky top-0 left-0 w-full z-20 navbar shadow-xl">
-        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
-            <a href="index.html" class="logo-text">ALI CLIPS</a>
-            <div class="flex space-x-8" style="font-family: 'Montserrat', sans-serif;">
+     <nav class="sticky top-0 left-0 w-full z-20 navbar shadow-xl">
+        <div class="container mx-auto px-6 py-4 flex justify-center items-center">
+            
+            
+            <div class="flex space-x-8 hidden sm:flex">
                 <a href="index.html" class="nav-link">Home</a>
                 <a href="main.html" class="nav-link">Services</a>
-                <a href="works.html" class="nav-link active">Work</a>
-                <a href="policies.html" class="nav-link">Policies</a>
+                <a href="works.html" class="nav-link">Work</a>
                 <a href="reviews.html" class="nav-link">Reviews</a>
             </div>
         </div>
     </nav>
-
-    <main class="container mx-auto px-4 py-16">
-        <h1 class="page-title mb-12" style="font-family: 'Playfair Display', serif;">My Work</h1>
-
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 max-w-7xl mx-auto">
-            <div class="image-card">
-                <img src="https://d2zdpiztbgorvt.cloudfront.net/region1/ca/18911/inspiration/f9a81d9407f64e0899e1110fbb4ed7-ali-clips-inspiration-937a20ea8e5c441891c5ba7a7421bd-booksy.jpeg?size=1170x1170" alt="Fresh haircut with a clean fade" class="w-full h-auto object-cover rounded-lg">
-            </div>
-
-            <div class="image-card">
-                <img src="https://d2zdpiztbgorvt.cloudfront.net/region1/ca/18911/inspiration/44690924c77f4c3aa4c65699c12847-ali-clips-inspiration-2bd1b0dbb1ac4b5ca96cdc636436ba-booksy.jpeg?size=1170x1170" alt="Sharp men's hairstyle with texture" class="w-full h-auto object-cover rounded-lg">
-            </div>
-
-            <div class="image-card">
-                <img src="https://d2zdpiztbgorvt.cloudfront.net/region1/ca/18911/inspiration/6e8df8757baa44278953009e7f664a-ali-clips-inspiration-ed143fb6af6743c2986dc5898b6bcc-booksy.jpeg?size=1170x1170" alt="Detailed beard trim and lineup" class="w-full h-auto object-cover rounded-lg">
-            </div>
-
-            <div class="image-card">
-                <img src="https://d2zdpiztbgorvt.cloudfront.net/region1/ca/18911/inspiration/2d71e43c25c949d081996710599077-ali-clips-inspiration-af197fac65fa4327aaf036f3a92821-booksy.jpeg?size=1170x1170" alt="Modern textured haircut" class="w-full h-auto object-cover rounded-lg">
-            </div>
-
-            <div class="image-card">
-                <img src="https://d2zdpiztbgorvt.cloudfront.net/region1/ca/18911/inspiration/bc17f1f4173d4d79b44d2d96d39d10-ali-clips-inspiration-3aa6f32ce4bc4b409e66f7d530c8f3-booksy.jpeg?size=1170x1170" alt="Clean haircut with a fade and design" class="w-full h-auto object-cover rounded-lg">
-            </div>
-        </div>
-    </main>
     
 
+    <main class="container mx-auto px-4 py-16">
+        <h1 class="page-title mb-12">My Work</h1>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 max-w-7xl mx-auto">
+            
+            <div class="image-card-container">
+                <img src="https://d2zdpiztbgorvt.cloudfront.net/region1/ca/18911/inspiration/f9a81d9407f64e0899e1110fbb4ed7-ali-clips-inspiration-937a20ea8e5c441891c5ba7a7421bd-booksy.jpeg?size=1170x1170" alt="Fresh haircut with a clean fade" class="w-full h-auto object-cover rounded-lg">
+                <div class="card-overlay">
+                    <p class="card-title">Clean Mid Fade</p>
+                    <p class="card-text">Razor sharp lines and perfect blend.</p>
+                </div>
+            </div>
+
+            <div class="image-card-container">
+                <img src="https://d2zdpiztbgorvt.cloudfront.net/region1/ca/18911/inspiration/44690924c77f4c3aa4c65699c12847-ali-clips-inspiration-2bd1b0dbb1ac4b5ca96cdc636436ba-booksy.jpeg?size=1170x1170" alt="Sharp men's hairstyle with texture" class="w-full h-auto object-cover rounded-lg">
+                <div class="card-overlay">
+                    <p class="card-title">Textured Crop</p>
+                    <p class="card-text">Low fade with natural, flowing texture on top.</p>
+                </div>
+            </div>
+
+            <div class="image-card-container">
+                <img src="https://d2zdpiztbgorvt.cloudfront.net/region1/ca/18911/inspiration/6e8df8757baa44278953009e7f664a-ali-clips-inspiration-ed143fb6af6743c2986dc5898b6bcc-booksy.jpeg?size=1170x1170" alt="Detailed beard trim and lineup" class="w-full h-auto object-cover rounded-lg">
+                <div class="card-overlay">
+                    <p class="card-title">Beard Trim & Lineup</p>
+                    <p class="card-text">Precision sculpting and razor cleanup.</p>
+                </div>
+            </div>
+
+            <div class="image-card-container">
+                <img src="https://d2zdpiztbgorvt.cloudfront.net/region1/ca/18911/inspiration/2d71e43c25c949d081996710599077-ali-clips-inspiration-af197fac65fa4327aaf036f3a92821-booksy.jpeg?size=1170x1170" alt="Modern textured haircut" class="w-full h-auto object-cover rounded-lg">
+                <div class="card-overlay">
+                    <p class="card-title">High Taper Fade</p>
+                    <p class="card-text">Classic taper, blended to perfection.</p>
+                </div>
+            </div>
+
+            <div class="image-card-container">
+                <img src="https://d2zdpiztbgorvt.cloudfront.net/region1/ca/18911/inspiration/bc17f1f4173d4d79b44d2d96d39d10-ali-clips-inspiration-3aa6f32ce4bc4b409e66f7d530c8f3-booksy.jpeg?size=1170x1170" alt="Clean haircut with a fade and design" class="w-full h-auto object-cover rounded-lg">
+                <div class="card-overlay">
+                    <p class="card-title">Fade with Hard Part</p>
+                    <p class="card-text">Expertly crafted line work for definition.</p>
+                </div>
+            </div>
+
+            <div class="image-card-container">
+                <img src="https://d2zdpiztbgorvt.cloudfront.net/region1/ca/18911/inspiration/824d107accce4c69ba6aa55c918cd8-ali-clips-inspiration-d3d22c3bfe004df99df90728d2da5b-booksy.jpeg?size=360x360" alt="Classic pompadour haircut" class="w-full h-auto object-cover rounded-lg">
+                <div class="card-overlay">
+                    <p class="card-title">Classic Pompadour</p>
+                    <p class="card-text">Timeless style with volume and smooth finish.</p>
+                </div>
+            </div>
+              <div class="image-card-container">
+    <img src="https://i.postimg.cc/G2P8dX4F/Whats-App-Image-2025-10-07-at-17-49-36-a041d953.jpg" alt="Sleek & Cool Fade Design" class="w-full h-auto object-cover rounded-lg">
+    <div class="card-overlay">
+        <p class="card-title">Sleek & Cool Fade Design</p>
+        <p class="card-text">Fully freshened up with a stylish finish.</p>
+    </div>
+</div>
+
+               <div class="image-card-container">
+                <img src="https://i.postimg.cc/qRch41Nc/Whats-App-Image-2025-10-07-at-17-49-36-0af0ddd8.jpg" class="w-full h-auto object-cover rounded-lg">
+                <div class="card-overlay">
+                    <p class="card-title">Clean Mid Taper-Fade</p>
+                    <p class="card-text">Modern & Fresh New Style.</p>
+
+                    
+                    <div class="image-card-container" onclick="openModal('https://i.postimg.cc/tTdZpBsW/Whats-App-Image-2025-10-07-at-17-49-36-c637154d.jpg', 'Clean Mid Taper-Fade', 'Styled and finished for a sharp look.')">
+    <img src="https://i.postimg.cc/tTdZpBsW/Whats-App-Image-2025-10-07-at-17-49-36-c637154d.jpg" class="w-full h-auto object-cover rounded-lg">
+    <div class="card-overlay">
+        <p class="card-title">Clean Mid Taper-Fade</p>
+        <p class="card-text">Styled and finished for a sharp look.</p>
+    </div>
+</div>
+                </div>
+            </div>
+            <div class="scroll-gallery" style="display: flex; gap: 1.5rem; overflow-x: auto; padding-bottom: 1rem;">
+   
+</div>
+
+        </div>
+    </main>
     <footer class="footer">
         <div class="footer-content">
             <p>© 2025 Ali Clips. All rights reserved. Located in Brampton, Ontario, Canada.</p>
@@ -274,6 +378,5 @@ footer {
             </div>
         </div>
     </footer>
-    <script src="transition.js"></script>
 </body>
 </html>
