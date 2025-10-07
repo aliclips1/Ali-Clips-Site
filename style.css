@@ -1,177 +1,341 @@
-body {
-    font-family: 'Roboto Mono', monospace;
-    background-color: #121212; /* Darker background */
-    color: #e5e7eb;
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ali Clips - Client Reviews</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;700;800&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* Define the Monochrome Palette (White Background, Black Accents) */
+        :root {
+            --color-primary-light: #FFFFFF;
+            --color-secondary-light: #f8f8f8; /* For card/footer background */
+            --color-text-dark: #1a1a1a; /* Very Dark Gray/Near Black */
+            --color-text-light-subtle: #666666;
+            --color-accent: #000000; /* True Black for primary accents and buttons */
+            --color-border: rgba(200, 200, 200, 0.5);
+            --color-shadow: rgba(0, 0, 0, 0.1);
+        }
+
+        body {
+            /* Set primary font to Montserrat (Professional and Clean) */
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--color-primary-light);
+            /* Set body text color to Near Black */
+            color: var(--color-text-dark);
+            overflow-x: hidden;
+        }
+
+        /* --- Navbar & Links (Kept Consistent) --- */
+        .navbar {
+            position: sticky;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 20;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(8px);
+            border-bottom: 1px solid var(--color-border);
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+            transition: background 0.3s ease;
+        }
+
+        .logo-text {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 800;
+            text-transform: uppercase;
+            font-size: 2.2rem;
+            color: var(--color-accent);
+            letter-spacing: 0.25em;
+            transform: scaleX(1.1);
+            display: inline-block;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+            transition: color 0.3s ease;
+        }
+        .logo-text:hover {
+            color: var(--color-text-light-subtle);
+        }
+
+        .nav-link {
+            font-family: 'Montserrat', sans-serif;
+            position: relative;
+            color: var(--color-text-dark);
+            font-weight: 500;
+            transition: color 0.3s ease;
+            padding: 0.5rem 0;
+            letter-spacing: 0.05em;
+            font-size: 1.1rem;
+        }
+
+        .nav-link:hover,
+        .nav-link.active {
+            color: var(--color-accent);
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 0;
+            background-color: var(--color-accent);
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover::after,
+        .nav-link.active::after {
+            width: 100%;
+        }
+
+        /* --- Page Title (Consistent Style: Montserrat, Heavy, Uppercase) --- */
+        .page-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 4rem;
+            color: var(--color-accent);
+            letter-spacing: 0.1em;
+            text-align: center;
+            font-weight: 800; /* Very bold weight for impact */
+            line-height: 1.1;
+            text-transform: uppercase; /* Consistent, strong look */
+        }
+        /* MOBILE INCLUSIVE */
+@media (max-width: 900px) {
+    .page-title { font-size: 2.2rem !important; }
+    .page-title.h2-style { font-size: 1.5rem !important; }
+    .cta-button { padding: 0.7rem 1.2rem !important; font-size: 1rem !important; }
+    .review-card { padding: 1.2rem !important; }
 }
 
-/* Custom style for the navigation links with a clean, understated hover effect */
-.nav-link-bubbly {
-    position: relative;
-    display: inline-block;
-    transition: all 0.3s ease-in-out;
+@media (max-width: 600px) {
+    .main, .container, .max-w-4xl, .max-w-6xl {
+        padding-left: 0.5rem !important;
+        padding-right: 0.5rem !important;
+    }
+    .grid { gap: 1rem !important; }
+    .review-card { padding: 0.7rem !important; font-size: 0.95rem !important; }
+    .footer-content { flex-direction: column !important; gap: 1rem !important; text-align: center !important; }
+    .social-icons { margin-top: 1rem !important; justify-content: center !important; }
 }
 
-.nav-link-bubbly:hover {
-    transform: translateY(-2px);
-    color: white;
+@media (max-width: 480px) {
+    .page-title { font-size: 1.3rem !important; }
+    .page-title.h2-style { font-size: 1rem !important; }
+    .review-card { padding: 0.5rem !important; font-size: 0.9rem !important; }
+    .cta-button { padding: 0.5rem 0.8rem !important; font-size: 0.9rem !important; }
 }
+        
+        /* Specific styling for the H2 "Client Testimonials" */
+        .page-title.h2-style {
+            font-size: 3rem; 
+            font-weight: 800;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+        }
 
-.nav-link-bubbly::after {
-    content: '';
-    position: absolute;
-    width: 100%;
-    transform: scaleX(0);
-    height: 2px;
-    bottom: -5px;
-    left: 0;
-    background-color: #f3f4f6; /* A subtle hover line */
-    transform-origin: bottom right;
-    transition: transform 0.3s ease-in-out;
-}
+        @media (max-width: 768px) {
+            .page-title {
+                font-size: 3rem;
+            }
+            .page-title.h2-style {
+                font-size: 2.2rem;
+            }
+        }
+        
+        /* --- Review Card Styling (Kept Consistent) --- */
+        .review-card {
+            background-color: var(--color-secondary-light);
+            border: 1px solid var(--color-border);
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 4px 15px var(--color-shadow);
+            transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+            position: relative;
+        }
+        .review-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 35px rgba(0, 0, 0, 0.15);
+            border-color: var(--color-accent);
+        }
+        .review-card::before {
+            content: "“";
+            font-family: 'Montserrat', sans-serif;
+            font-size: 6rem;
+            font-weight: 300; 
+            color: black;
+            position: absolute;
+            top: -2rem;
+            left: 1rem;
+            opacity: 0.1;
+        }
+        .review-card .reviewer-name {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            font-size: 1.5rem;
+            color: var(--color-text-dark);
+            margin-top: 1rem;
+        }
+        .review-text {
+            color: var(--color-text-dark);
+            position: relative;
+            z-index: 10;
+            line-height: 1.6;
+            font-size: 1.05rem; /* slightly increased body text size */
+        }
 
-.nav-link-bubbly:hover::after {
-    transform: scaleX(1);
-    transform-origin: bottom left;
-}
+        /* --- CTA Button Styling (Kept Consistent) --- */
+        .cta-button {
+            padding: 1rem 2.5rem;
+            background-color: var(--color-accent);
+            color: var(--color-primary-light);
+            font-weight: 700;
+            border-radius: 9999px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            transition: background-color 0.3s ease-in-out, transform 0.3s ease-in-out;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .cta-button:hover {
+            background-color: #333333;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.6);
+        }
+        .cta-button-icon {
+            font-size: 1.25rem;
+        }
 
-/* Bubbly button style */
-.bubbly-button {
-    background-color: #f3f4f6;
-    color: #121212;
-    font-weight: bold;
-    padding: 0.5rem 1.5rem;
-    border-radius: 9999px;
-    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-    position: relative;
-    overflow: hidden;
-    z-index: 1;
-}
+        /* --- Footer Styling (Kept Consistent) --- */
+        footer {
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--color-secondary-light);
+            border-top: 1px solid var(--color-border);
+            padding: 3rem 0;
+            font-size: 0.9rem;
+            color: var(--color-text-light-subtle);
+        }
 
-.bubbly-button:hover {
-    color: #fff;
-    box-shadow: 0 0 20px rgba(243, 244, 246, 0.5);
-}
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
 
-.bubbly-button:hover::before {
-    transform: translate(-50%, -50%) scale(1.5);
-    opacity: 1;
-}
+        .social-icons a {
+            color: var(--color-text-dark);
+            font-size: 1.5rem;
+            margin-left: 1.5rem;
+            transition: color 0.3s ease;
+        }
+        .social-icons a:hover {
+            color: var(--color-accent);
+        }
 
-.bubbly-button:active {
-    transform: scale(0.95);
-}
+        @media (max-width: 768px) {
+            .footer-content {
+                flex-direction: column;
+                text-align: center;
+                gap: 1.5rem;
+            }
+            .social-icons {
+                margin-top: 1rem;
+                justify-content: center;
+            }
+        }
 
-.bubbly-button::before {
-    content: '';
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 150%;
-    height: 150%;
-    background: rgba(243, 244, 246, 0.2);
-    border-radius: 50%;
-    transform: translate(-50%, -50%) scale(0);
-    transition: transform 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
-    z-index: -1;
-}
 
-/* Modal specific styles for a bubbly effect */
-.modal {
-    display: none; /* Hidden by default */
-    position: fixed;
-    z-index: 100;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    overflow: auto;
-    background-color: rgba(0, 0, 0, 0.8);
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
-    justify-content: center;
-    align-items: center;
+        .text-xl,
+.text-gray-600,
+.mb-10 {
+    font-family: 'Montserrat', sans-serif !important;
+    color: var(--color-text-dark) !important;
+    font-size: 1.15rem !important;
+    font-weight: 400 !important;
+    letter-spacing: 0.01em;
 }
+    </style>
+</head>
+<body class="bg-white min-h-screen font-sans">
 
-.modal-content {
-    background-color: #1a1a1a;
-    padding: 2rem;
-    border-radius: 2rem;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
-    max-width: 90%;
-    width: 500px;
-    position: relative;
-    transition: transform 0.3s ease-out;
-    transform: scale(0.9);
-}
+    <nav class="sticky top-0 left-0 w-full z-20 navbar shadow-xl">
+        <div class="container mx-auto px-6 py-4 flex justify-center items-center">
+            
+            
+            <div class="flex space-x-8 hidden sm:flex">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="main.html" class="nav-link">Services</a>
+                <a href="works.html" class="nav-link">Work</a>
+                <a href="reviews.html" class="nav-link">Reviews</a>
+            </div>
+        </div>
+    </nav>
 
-.modal.show .modal-content {
-    transform: scale(1);
-}
+    <main class="container mx-auto px-6 py-16">
+        
+        <div class="max-w-4xl mx-auto text-center mb-24">
+            <h1 class="page-title mb-4">Leave a Review</h1>
+            <p class="text-xl text-gray-600 mb-10">
+                Your feedback is valuable! Please click below to leave a review on our official Booksy site and share your Ali Clips experience.
+            </p>
+            <a href="https://booksy.com/en-ca/18911_ali-clips_barbershop_870806_mississauga" target="_blank" class="cta-button">
+                <i class="fas fa-star cta-button-icon"></i>
+                Review Ali Clips on Booksy
+            </a>
+        </div>
+        
+        <div class="max-w-4xl mx-auto text-center mb-12">
+            <h2 class="page-title h2-style">Client Testimonials</h2>
+            <p class="text-gray-600 mt-4">Read what people are saying about their recent appointments.</p>
+        </div>
 
-/* Animated confirmation message */
-.confirmation-message {
-    position: fixed;
-    top: 2rem;
-    left: 50%;
-    transform: translateX(-50%);
-    background-color: #22c55e;
-    color: white;
-    padding: 1rem 2rem;
-    border-radius: 9999px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-    opacity: 0;
-    transition: opacity 0.5s ease-in-out;
-    z-index: 1000;
-}
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
+            <div class="review-card">
+                <p class="review-text">"Ali is a true professional. The attention to detail in his work is unmatched. Every haircut feels like a new, fresh start. Highly recommend!"</p>
+                <p class="reviewer-name">Alex M.</p>
+            </div>
 
-.confirmation-message.show {
-    opacity: 1;
-}
+            <div class="review-card">
+                <p class="review-text">"The best barber in Brampton, hands down. The hot towel shave is a game-changer. The shop has a great vibe and the service is always top-notch."</p>
+                <p class="reviewer-name">David L.</p>
+            </div>
 
-/* Calendar styles */
-.calendar-day {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 40px;
-    height: 40px;
-    border-radius: 9999px;
-    cursor: pointer;
-    transition: transform 0.2s ease-in-out, background-color 0.2s ease-in-out;
-    user-select: none;
-}
+            <div class="review-card">
+                <p class="review-text">"Finally, a barber who listens! I got exactly what I asked for and more. The online booking system is so convenient. I'll be a regular for sure."</p>
+                <p class="reviewer-name">Jordan R.</p>
+            </div>
+            
+            <div class="review-card">
+                <p class="review-text">"Consistently the best fade I've ever had. I trust Ali completely with my hair. Always on time, professional, and a great experience."</p>
+                <p class="reviewer-name">Omar F.</p>
+            </div>
+            
+            <div class="review-card">
+                <p class="review-text">"My son's haircut looks fantastic every time. He’s patient with kids and delivers a clean, sharp look. Excellent service."</p>
+                <p class="reviewer-name">Maria S.</p>
+            </div>
+            
+            <div class="review-card">
+                <p class="review-text">"The environment is clean and comfortable. Great conversation and an amazing haircut and beard trim. Worth every penny."</p>
+                <p class="reviewer-name">Kevin P.</p>
+            </div>
+        </div>
+    </main>
 
-.calendar-day:hover:not(.unavailable-day) {
-    transform: scale(1.1);
-}
-
-/* Specific day states */
-.available-day {
-    background-color: #22c55e;
-    color: white;
-}
-.unavailable-day {
-    background-color: #4b5563;
-    color: #9ca3af;
-    cursor: not-allowed;
-}
-.selected-day {
-    background-color: #3b82f6;
-    color: white;
-    transform: scale(1.1);
-    box-shadow: 0 0 15px rgba(59, 130, 246, 0.5);
-}
-
-/* Message box for alerts */
-#message-box {
-    display: none;
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background-color: #333;
-    border-radius: 1rem;
-    padding: 2rem;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.5);
-    z-index: 200;
-}
+    <footer class="footer">
+        <div class="footer-content">
+            <p>© 2025 Ali Clips. All rights reserved. Located in Brampton, Ontario, Canada.</p>
+            <div class="social-icons">
+                <a href="https://booksy.com/en-ca/18911_ali-clips_barbershop_870806_mississauga" target="_blank" aria-label="Booksy Link"><i class="fas fa-calendar-alt"></i></a>
+                <a href="https://www.instagram.com/aliclips_/?hl=en" target="_blank" aria-label="Instagram Profile"><i class="fab fa-instagram"></i></a>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
