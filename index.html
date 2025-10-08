@@ -1,32 +1,844 @@
-<script>
-    document.addEventListener('DOMContentLoaded', () => {
-        const button = document.getElementById('mobile-menu-button');
-        const menu = document.getElementById('mobile-menu');
-        const icon = button.querySelector('i');
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ali Clips - Elite Barber Experience</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;700;800&family=Playfair+Display:wght@700&family=Dancing+Script:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: #FFFFFF; /* White background */
+            color: #1a1a1a;
+            overflow-x: hidden;
+        }
+/* Responsive adjustments for mobile */
+@media (max-width: 900px) {
+    .about-content {
+        flex-direction: column !important;
+        text-align: center;
+        align-items: center;
+        gap: 2rem !important;
+    }
+    .map-container,
+    .carousel-container {
+        max-width: 95vw !important;
+        height: 250px !important;
+        margin: 0 auto !important;
+    }
+    .carousel-image-wrapper {
+        max-width: 95vw !important;
+        height: 180px !important;
+    }
+    .about-title {
+        font-size: 2rem !important;
+        margin-bottom: 2rem !important;
+    }
+}
 
-        button.addEventListener('click', () => {
-            const isHidden = menu.classList.contains('hidden');
-            
-            // Toggle menu visibility
-            menu.classList.toggle('hidden');
+@media (max-width: 600px) {
+    .hero-title {
+        font-size: 2rem !important;
+    }
+    .hero-tagline {
+        font-size: 1rem !important;
+    }
+    .carousel-image-wrapper {
+        height: 120px !important;
+    }
+    .modal-arrow {
+        width: 44px !important;
+        height: 44px !important;
+        font-size: 1.2rem !important;
+        left: 8px !important;
+        right: 8px !important;
+    }
+    .close-modal {
+        top: 12px !important;
+        right: 16px !important;
+        font-size: 2rem !important;
+    }
+    .about-title {
+        font-size: 1.3rem !important;
+        margin-bottom: 1.2rem !important;
+    }
+    .map-container {
+        height: 180px !important;
+    }
+}
 
-            // Change icon (Hamburger <-> X) for better UX
-            if (isHidden) {
-                icon.classList.remove('fa-bars');
-                icon.classList.add('fa-times');
-            } else {
-                icon.classList.remove('fa-times');
-                icon.classList.add('fa-bars');
+@media (max-width: 480px) {
+    .container {
+        padding-left: 0.5rem !important;
+        padding-right: 0.5rem !important;
+    }
+    .footer-content {
+        flex-direction: column !important;
+        gap: 1rem !important;
+        text-align: center !important;
+    }
+}
+        /* Effective Montserrat Heading Styles */
+.hero-title,
+.about-title,
+.services-title,
+.page-title {
+    font-family: 'Montserrat', sans-serif !important;
+    font-weight: 800 !important;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: #000000;
+    line-height: 1.1;
+    margin-bottom: 0.5em;
+}
+
+.hero-title {
+    font-size: 4rem;
+}
+
+.about-title,
+.services-title,
+.page-title {
+    font-size: 3rem;
+    text-align: center;
+}
+
+@media (max-width: 1024px) {
+    .hero-title { font-size: 3rem; }
+    .about-title,
+    .services-title,
+    .page-title { font-size: 2.2rem; }
+}
+
+@media (max-width: 768px) {
+    .hero-title { font-size: 2rem; }
+    .about-title,
+    .services-title,
+    .page-title { font-size: 1.3rem; }
+}
+       
+        .nav-link {
+            position: relative;
+            color: #1a1a1a; /* Dark text */
+            font-weight: 500;
+            transition: color 0.3s ease;
+            padding: 0.5rem 0;
+            letter-spacing: 0.05em;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.1rem;
+        }
+
+        .nav-link:hover {
+            color: #000000; /* Changed from Gold to Black on hover */
+            font-weight: 500;
+        }
+
+        .nav-link.active {
+            color: #000000; /* Changed from Gold to Black */
+            font-weight: 500;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 0;
+            background-color: #000000; /* Changed from Gold to Black */
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover::after,
+        .nav-link.active::after {
+            width: 100%;
+        }
+
+        /* Hero Section Styling */
+        .hero-section {
+            position: relative;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: black;
+            overflow: hidden;
+            background: linear-gradient(rgba(255,255,255,0.7), rgba(255,255,255,0.9)), url('https://source.unsplash.com/1600x900/?barber,luxury') no-repeat center center/cover;
+        }
+
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            /* Changed radial gradient from gold to black shades */
+            background: radial-gradient(circle, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.5) 50%, rgba(0,0,0,0) 100%);
+            transform: translate(-50%, -50%);
+            animation: pulse-ring 2s ease-out infinite;
+            z-index: 1;
+        }
+
+        @keyframes pulse-ring {
+            0% {
+                width: 0;
+                height: 0;
+                opacity: 1;
             }
-        });
+            100% {
+                width: 100vw;
+                height: 100vh;
+                opacity: 0;
+            }
+        }
 
-        // Optional: Hide the menu when a link is clicked
-        menu.querySelectorAll('a').forEach(link => {
-            link.addEventListener('click', () => {
-                menu.classList.add('hidden');
-                icon.classList.remove('fa-times');
-                icon.classList.add('fa-bars');
+        .hero-content {
+            z-index: 2;
+            position: relative;
+            max-width: 900px;
+            padding: 0 1.5rem;
+        }
+
+        .hero-title {
+            font-family: 'Dancing Script', cursive;
+            font-size: 7rem;
+            line-height: 1.1;
+            margin-bottom: 0.5rem;
+            letter-spacing: 0.05em;
+            text-shadow: 0 4px 10px rgba(255,255,255,0.5);
+            font-weight: 700;
+            color: #000000; /* Black color for hero title */
+        }
+
+        .hero-tagline {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 400;
+            margin-bottom: 2.5rem;
+            line-height: 1.4;
+            letter-spacing: 0.05em;
+            color: #1a1a1a;
+        }
+
+        .book-button {
+            background-color: #000000; /* Black button */
+            color: #FFFFFF;
+            padding: 1.2rem 3rem;
+            font-size: 1.2rem;
+            font-weight: 700;
+            border-radius: 5px;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+        }
+
+        .book-button:hover {
+            background-color: #333333;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.6);
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 1024px) {
+            .hero-title { font-size: 5rem; }
+            .hero-tagline { font-size: 1.5rem; }
+        }
+
+        @media (max-width: 768px) {
+            .hero-title { font-size: 3.5rem; }
+            .hero-tagline { font-size: 1.2rem; }
+            .book-button { padding: 1rem 2.5rem; font-size: 1rem; }
+            .navbar .flex-col { align-items: center; }
+            .navbar .space-x-8 { flex-direction: column; space: 0; gap: 1rem; }
+        }
+
+        @media (max-width: 480px) {
+            .hero-title { font-size: 2.5rem; }
+            .hero-tagline { font-size: 1rem; }
+        }
+
+        /* About Section */
+       .about-section {
+    background-color: #f5f5f5;
+    border-top: 1px solid rgba(200, 200, 200, 0.5);
+    padding-top: 3rem;   /* reduced from 6rem */
+    padding-bottom: 6rem;
+}
+
+.about-title {
+    font-family: 'Montserrat', sans-serif !important;
+    font-weight: 800 !important;
+    font-size: 3.5rem;
+    color: #1a1a1a;
+    margin-bottom: 3.5rem; /* increased from 2rem */
+    text-align: center;
+    letter-spacing: 0.08em;
+}
+      
+
+        .about-text {
+            flex: 1;
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #333333;
+        }
+
+        .about-image {
+            flex: 1;
+            border-radius: 8px;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.2);
+            border: 2px solid #000000;
+            overflow: hidden;
+            width: 100%;
+            height: 450px;
+        }
+        .about-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        /* Google Maps iframe styles */
+       .map-container {
+    flex: 1;
+    width: 100%;
+    height: 450px;
+    border-radius: 8px;
+    overflow: hidden;
+    border: 2px solid #000000;
+    transition: height 0.3s ease;
+}
+.map-container iframe {
+    width: 100%;
+    height: 100%;
+}
+
+  
+    .map-container {
+        max-width: 80%;
+        flex: none;
+        height: 300px;
+    }
+
+        /* Phone & Copy button styles */
+        .contact-info-block {
+            flex: none;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 0.5rem;
+            margin-top: 1rem;
+            text-align: left;
+        }
+        .contact-info-block p {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            margin-bottom: 0.25rem;
+        }
+        .copy-button {
+            background: #000000;
+            color: #FFFFFF;
+            padding: 0.25rem 0.75rem;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            transition: background 0.3s ease;
+        }
+        .copy-button:hover {
+            background: #333333;
+        }
+
+        @media (max-width: 900px) {
+            .about-content {
+                flex-direction: column;
+                text-align: center;
+                align-items: center;
+            }
+            .about-image {
+                max-width: 80%;
+                flex: none;
+                height: 300px;
+            }
+            .map-container {
+                max-width: 80%;
+                flex: none;
+                height: 300px;
+            }
+            .about-title {
+                font-size: 2.8rem;
+            }
+            .contact-info-block {
+                align-items: center;
+                text-align: center;
+            }
+        }
+
+        /* Services Preview Section */
+        .services-preview {
+            padding: 6rem 0;
+            background-color: #FFFFFF;
+        }
+
+        .services-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 3.5rem;
+            color: #1a1a1a;
+            margin-bottom: 4rem;
+            text-align: center;
+            letter-spacing: 0.08em;
+        }
+
+        .service-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2.5rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+
+        .service-card {
+            background-color: #f0f0f0;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: 1px solid rgba(200,200,200,0.5);
+        }
+
+        .service-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 35px rgba(0, 0, 0, 0.2);
+        }
+
+        .service-card img {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+            display: block;
+            border-bottom: 1px solid rgba(200,200,200,0.5);
+        }
+
+        .service-content {
+            padding: 1.8rem;
+            text-align: center;
+        }
+
+        .service-content h3 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 0.8rem;
+            color: #000000; /* Changed from Gold to Black */
+            font-family: 'Playfair Display', serif;
+        }
+
+        .service-content p {
+            font-size: 1rem;
+            color: #333333;
+            line-height: 1.6;
+        }
+
+        /* Footer Styling */
+        footer {
+            background-color: #f5f5f5;
+            border-top: 1px solid rgba(200, 200, 200, 0.5);
+            padding: 3rem 0;
+            font-size: 0.9rem;
+            color: #888888;
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+
+        .social-icons a {
+            color: #1a1a1a;
+            font-size: 1.5rem;
+            margin-left: 1.5rem;
+            transition: color 0.3s ease;
+        }
+        .social-icons a:hover {
+            color: #000000; /* Changed from Gold to Black */
+        }
+        .social-link {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            text-decoration: none;
+            color: #1a1a1a;
+            font-weight: 500;
+            font-size: 1.2rem;
+        }
+        .social-link:hover {
+            color: #000000; /* Changed from Gold to Black */
+        }
+        .social-link .fab, .social-link .fas {
+            font-size: 1.5rem;
+        }
+        .logo-text {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 800;
+            text-transform: uppercase;
+            font-size: 2.2rem;
+            color: #000000;
+            transition: color 0.3s ease;
+            letter-spacing: 0.25em;
+            transform: scaleX(1.1);
+            display: inline-block;
+            text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.4);
+        }
+        .logo-text:hover {
+            color: #000000; /* Changed from Gold to Black */
+        }
+
+        @media (max-width: 768px) {
+            .footer-content {
+                flex-direction: column;
+                text-align: center;
+                gap: 1.5rem;
+            }
+            .social-icons {
+                margin-top: 1rem;
+                justify-content: center;
+            }
+            .social-icons a {
+                margin: 0 0.8rem;
+            }
+            .footer-content > p {
+                order: 2;
+            }
+            .social-icons {
+                order: 1;
+            }
+        }
+
+        .carousel-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    margin: 2rem auto;
+    max-width: 600px;
+}
+
+.carousel-image-wrapper {
+    width: 100%;
+    max-width: 500px;
+    height: 320px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    border-radius: 12px;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.12);
+    background: #fff;
+}
+
+.carousel-image-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: opacity 0.4s ease;
+    border-radius: 12px;
+}
+
+.carousel-arrow {
+    background: #000;
+    color: #fff;
+    border: none;
+    border-radius: 50%;
+    width: 44px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    cursor: pointer;
+    transition: background 0.2s;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+}
+.carousel-arrow:hover {
+    background: #333;
+}
+
+@media (max-width: 600px) {
+    .carousel-image-wrapper {
+        max-width: 90vw;
+        height: 180px;
+    }
+    .carousel-container {
+        gap: 0.5rem;
+    }
+}
+  .navbar {
+            position: sticky;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 20;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(8px);
+            border-bottom: 1px solid var(--color-border);
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+            transition: background 0.3s ease;
+        }
+
+
+
+.modal-overlay {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100vw; height: 100vh;
+    background: rgba(0,0,0,0.85);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+}
+.modal-img {
+    max-width: 90vw;
+    max-height: 90vh;
+    border-radius: 12px;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.5);
+}
+.close-modal {
+    position: absolute;
+    top: 32px;
+    right: 48px;
+    color: #fff;
+    font-size: 3rem;
+    font-weight: bold;
+    cursor: pointer;
+    z-index: 10000;
+    transition: color 0.2s;
+}
+.close-modal:hover {
+    color: #B8860B;
+}
+
+/* Modal arrows styling */
+.modal-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: #fff;
+    color: #000;
+    border: 2px solid #B8860B; /* subtle gold border */
+    border-radius: 50%; /* fully rounded */
+    width: 64px;        /* larger for more impact */
+    height: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    cursor: pointer;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.18);
+    transition: background 0.2s, color 0.2s, box-shadow 0.2s, border 0.2s;
+    z-index: 10001;
+    opacity: 0.97;
+}
+.modal-arrow.left { left: 32px; }
+.modal-arrow.right { right: 32px; }
+.modal-arrow:hover {
+    background: #B8860B;
+    color: #fff;
+    border-color: #fff;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.25);
+}
+    </style>
+</head>
+<body class="bg-white min-h-screen text-gray-800">
+
+ <nav class="sticky top-0 left-0 w-full z-20 navbar shadow-xl">
+        <div class="container mx-auto px-6 py-4 flex justify-center items-center">
+            
+            
+            <div class="flex space-x-8 hidden sm:flex">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="main.html" class="nav-link">Services</a>
+                <a href="works.html" class="nav-link">Work</a>
+                <a href="reviews.html" class="nav-link">Reviews</a>
+            </div>
+        </div>
+    </nav>
+
+
+
+    <header class="hero-section">
+        <div class="hero-content">
+            <h1 class="hero-title">ALI CLIPS</h1>
+            <p class="hero-tagline">Barber Studio</p>
+            <script type="text/javascript" src="https://booksy.com/widget/code.js?id=18911&country=ca&lang=en-US"></script>
+        </div>
+    </header>
+
+    ---
+
+   <section id="about" class="about-section">
+    <div class="container mx-auto">
+        <h2 class="about-title">Our Workspace</h2>
+        <div class="about-content" style="display: flex; gap: 2rem;">
+            <div class="flex-1 flex flex-col items-start">
+                <div class="map-container mb-8">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2882.723730594396!2d-79.79152348451842!3d43.74606707911961!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x882b3d87b3a7b7a1%3A0x6a0b9e2c6e6a1d8!2s844%20Preston%20Manor%20Dr%2C%20Brampton%2C%20ON%20L6S%200B3%2C%20Canada!5e0!3m2!1sen!2sus!4v1678888888888!5m2!1sen!2sus" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                </div>
+                <div class="contact-info-block">
+                    <p class="text-xl text-gray-800">
+                        <span class="font-bold text-gray-800">Address:</span>
+                        <span class="ml-2">844 Preston Manor Drive</span>
+                    </p>
+                    <p class="text-xl text-gray-800 flex items-center justify-start">
+                        <span class="font-bold text-gray-800 mr-2">Phone:</span>
+                        <span id="phone-number">(647) 675-3254</span>
+                        <button onclick="copyPhoneNumber()" class="copy-button ml-4">
+                            Copy
+                        </button>
+                    </p>
+                </div>
+            </div>
+            <div class="flex-1">
+                <div class="carousel-container">
+                    <button class="carousel-arrow left" onclick="prevImage()">
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                    <div class="carousel-image-wrapper">
+                        <img id="carousel-image" src="https://i.im.ge/2025/10/08/nAkQzL.WhatsApp-Image-2025-10-07-at-16-45-56-48b4995b.png" alt="Ali Clips Work" />
+                    </div>
+                    <button class="carousel-arrow right" onclick="nextImage()">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Add this just after your carousel-container -->
+<div id="imageModal" class="modal-overlay" style="display:none;">
+    <button class="modal-arrow left" onclick="modalPrevImage(event)">
+        <i class="fas fa-chevron-left"></i>
+    </button>
+    <img id="modalImg" class="modal-img" src="" alt="Zoomed Image">
+    <button class="modal-arrow right" onclick="modalNextImage(event)">
+        <i class="fas fa-chevron-right"></i>
+    </button>
+    <span class="close-modal" onclick="closeModal()">&times;</span>
+</div>
+    ---
+<div class="about-content">
+    <div class="flex-1">
+        <!-- Map and contact info here -->
+    </div>
+    <div class="flex-1">
+        <!-- Carousel here -->
+    </div>
+</div>
+    <footer class="footer">
+        <div class="footer-content">
+            <p>© 2025 Ali Clips. All rights reserved. Located in Brampton, Ontario, Canada.</p>
+            <div class="social-icons">
+                <a href="https://booksy.com/en-ca/18911_ali-clips_barbershop_870806_mississauga" target="_blank" aria-label="Booksy Link"><i class="fas fa-calendar-alt"></i></a>
+                <a href="https://www.instagram.com/aliclips_/?hl=en" target="_blank" aria-label="Instagram Profile"><i class="fab fa-instagram"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function copyPhoneNumber() {
+            const phoneNumber = document.getElementById('phone-number').innerText;
+            navigator.clipboard.writeText(phoneNumber).then(() => {
+                alert('Phone number copied to clipboard!');
+            }).catch(err => {
+                console.error('Failed to copy: ', err);
             });
-        });
-    });
+        }
+    </script>
+
+    <script>
+const images = [
+    "https://i.im.ge/2025/10/08/nAkQzL.WhatsApp-Image-2025-10-07-at-16-45-56-48b4995b.png",
+    "https://i.im.ge/2025/10/08/nAkMtc.WhatsApp-Image-2025-10-07-at-16-37-47-f52f7d52.png",
+    "https://i.im.ge/2025/10/08/nAfesT.WhatsApp-Image-2025-10-07-at-16-36-54-929b7821.png"
+];
+let current = 0;
+
+function showImage(idx) {
+    const img = document.getElementById('carousel-image');
+    img.style.opacity = 0;
+    setTimeout(() => {
+        img.src = images[idx];
+        img.style.opacity = 1;
+    }, 200);
+}
+
+function prevImage() {
+    current = (current - 1 + images.length) % images.length;
+    showImage(current);
+}
+
+function nextImage() {
+    current = (current + 1) % images.length;
+    showImage(current);
+}
+
+// Optional: swipe support for mobile
+document.getElementById('carousel-image').addEventListener('touchstart', handleTouchStart, false);
+document.getElementById('carousel-image').addEventListener('touchend', handleTouchEnd, false);
+
+let xDown = null;
+function handleTouchStart(evt) {
+    xDown = evt.touches[0].clientX;
+}
+function handleTouchEnd(evt) {
+    if (!xDown) return;
+    let xUp = evt.changedTouches[0].clientX;
+    if (xDown - xUp > 40) nextImage();
+    else if (xUp - xDown > 40) prevImage();
+    xDown = null;
+}
+
+// Add this after your carousel JS
+document.getElementById('carousel-image').onclick = function() {
+    const modal = document.getElementById('imageModal');
+    const modalImg = document.getElementById('modalImg');
+    modalImg.src = images[current];
+    modal.style.display = 'flex';
+    document.body.style.overflow = 'hidden';
+};
+
+function closeModal() {
+    document.getElementById('imageModal').style.display = 'none';
+    document.body.style.overflow = '';
+}
+
+// Optional: close modal when clicking outside the image
+document.getElementById('imageModal').addEventListener('click', function(e) {
+    if (e.target === this) closeModal();
+});
+
+function modalPrevImage(e) {
+    e.stopPropagation();
+    current = (current - 1 + images.length) % images.length;
+    document.getElementById('modalImg').src = images[current];
+}
+function modalNextImage(e) {
+    e.stopPropagation();
+    current = (current + 1) % images.length;
+    document.getElementById('modalImg').src = images[current];
+}
 </script>
+</body>
+</html>
